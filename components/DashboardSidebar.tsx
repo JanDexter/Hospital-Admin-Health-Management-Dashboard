@@ -22,10 +22,6 @@ interface SidebarItem {
   active?: boolean;
 }
 
-interface DashboardSidebarProps {
-  onSwitchToParent?: () => void;
-}
-
 const sidebarItems: SidebarItem[] = [
   {
     icon: <LayoutDashboard className="h-4 w-4" />,
@@ -79,7 +75,7 @@ const sidebarItems: SidebarItem[] = [
   }
 ];
 
-export function DashboardSidebar({ }: DashboardSidebarProps) {
+export function DashboardSidebar() {
   return (
     <div className="w-64 bg-white border-r border-gray-200 h-full flex flex-col">
       {/* Logo */}

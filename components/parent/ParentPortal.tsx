@@ -1,14 +1,11 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Link } from "react-router-dom";
 import { 
   ArrowLeft, 
   Syringe
 } from "lucide-react";
-
-interface ParentPortalProps {
-  onSwitchToAdmin: () => void;
-}
 
 interface Child {
   id: string;
@@ -154,7 +151,7 @@ const mockVaccinations: { [key: string]: Vaccination[] } = {
   ]
 };
 
-export function ParentPortal({ onSwitchToAdmin }: ParentPortalProps) {
+export function ParentPortal() {
   const [selectedChild, setSelectedChild] = useState<string>(mockChildren[0].id);
   
   const currentChild = mockChildren.find(child => child.id === selectedChild);
@@ -184,15 +181,16 @@ export function ParentPortal({ onSwitchToAdmin }: ParentPortalProps) {
       <header className="bg-blue-600 text-white p-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onSwitchToAdmin}
-              className="text-white hover:bg-blue-700"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Admin Portal
-            </Button>
+            <Link to="/">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-white hover:bg-blue-700"
+              >
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Admin Portal
+              </Button>
+            </Link>
             <div className="flex items-center space-x-3">
               <div className="bg-white p-2 rounded">
                 <Syringe className="h-6 w-6 text-blue-600" />
