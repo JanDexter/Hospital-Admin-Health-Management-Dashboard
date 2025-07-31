@@ -1,21 +1,9 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Badge } from "../ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { 
   ArrowLeft, 
-  User, 
-  Calendar, 
-  Download, 
-  Clock, 
-  CheckCircle, 
-  AlertCircle,
-  Syringe,
-  Baby,
-  Phone,
-  Mail,
-  MapPin
+  Syringe
 } from "lucide-react";
 
 interface ParentPortalProps {
@@ -43,17 +31,31 @@ interface Vaccination {
 const mockChildren: Child[] = [
   {
     id: "1",
-    name: "Emma Johnson",
-    dateOfBirth: "2020-03-15",
-    age: "4 years",
-    avatar: "EJ"
+    name: "Robert Agipa",
+    dateOfBirth: "2022-09-20",
+    age: "2 years",
+    avatar: "RA"
   },
   {
     id: "2",
-    name: "Liam Johnson",
-    dateOfBirth: "2022-08-22",
-    age: "2 years",
-    avatar: "LJ"
+    name: "Japeth Agipa",
+    dateOfBirth: "2023-04-11",
+    age: "1 year",
+    avatar: "JA"
+  },
+  {
+    id: "3",
+    name: "Kent Agipa",
+    dateOfBirth: "2024-02-17",
+    age: "1 year",
+    avatar: "KA"
+  },
+  {
+    id: "4",
+    name: "Elrond Agipa",
+    dateOfBirth: "2023-11-08",
+    age: "1 year",
+    avatar: "EA"
   }
 ];
 
@@ -61,56 +63,93 @@ const mockVaccinations: { [key: string]: Vaccination[] } = {
   "1": [
     {
       id: "1",
-      vaccineName: "DTaP (Diphtheria, Tetanus, Pertussis)",
-      date: "2024-03-15",
+      vaccineName: "BCG",
+      date: "2022-10-20",
       status: "completed",
-      provider: "Dr. Sarah Wilson",
-      location: "Pediatric Clinic - Downtown"
+      provider: "Barangay Health Center",
+      location: "Thunderbolts Health Station"
     },
     {
       id: "2",
-      vaccineName: "MMR (Measles, Mumps, Rubella)",
-      date: "2024-03-15",
+      vaccineName: "Hepatitis B",
+      date: "2022-10-20",
       status: "completed",
-      provider: "Dr. Sarah Wilson",
-      location: "Pediatric Clinic - Downtown"
+      provider: "Barangay Health Center",
+      location: "Thunderbolts Health Station"
     },
     {
       id: "3",
-      vaccineName: "Varicella (Chickenpox)",
-      date: "",
-      nextDue: "2024-12-15",
-      status: "due",
-      provider: "Dr. Sarah Wilson",
-      location: "Pediatric Clinic - Downtown"
+      vaccineName: "DPT (Diphtheria, Pertussis, Tetanus)",
+      date: "2023-01-20",
+      status: "completed",
+      provider: "Barangay Health Center",
+      location: "Thunderbolts Health Station"
     }
   ],
   "2": [
     {
       id: "4",
-      vaccineName: "Hepatitis B",
-      date: "2024-01-22",
+      vaccineName: "BCG",
+      date: "2023-05-11",
       status: "completed",
-      provider: "Dr. Michael Chen",
-      location: "Children's Health Center"
+      provider: "Barangay Health Center",
+      location: "Thunderbolts Health Station"
     },
     {
       id: "5",
-      vaccineName: "DTaP (Diphtheria, Tetanus, Pertussis)",
-      date: "",
-      nextDue: "2024-10-22",
-      status: "due",
-      provider: "Dr. Michael Chen",
-      location: "Children's Health Center"
-    },
-    {
-      id: "6",
-      vaccineName: "Polio (IPV)",
+      vaccineName: "Hepatitis B",
       date: "",
       nextDue: "2024-09-15",
-      status: "overdue",
-      provider: "Dr. Michael Chen",
-      location: "Children's Health Center"
+      status: "due",
+      provider: "Barangay Health Center",
+      location: "Thunderbolts Health Station"
+    }
+  ],
+  "3": [
+    {
+      id: "6",
+      vaccineName: "BCG",
+      date: "",
+      nextDue: "2024-08-15",
+      status: "due",
+      provider: "Barangay Health Center",
+      location: "Thunderbolts Health Station"
+    },
+    {
+      id: "7",
+      vaccineName: "Pentavalent",
+      date: "",
+      nextDue: "2024-09-09",
+      status: "due",
+      provider: "Barangay Health Center",
+      location: "Thunderbolts Health Station"
+    },
+    {
+      id: "8",
+      vaccineName: "Oral Polio Vaccine (OPV)",
+      date: "",
+      nextDue: "2024-10-26",
+      status: "due",
+      provider: "Barangay Health Center",
+      location: "Thunderbolts Health Station"
+    }
+  ],
+  "4": [
+    {
+      id: "9",
+      vaccineName: "Hepatitis B",
+      date: "2023-11-15",
+      status: "completed",
+      provider: "Barangay Health Center",
+      location: "Thunderbolts Health Station"
+    },
+    {
+      id: "10",
+      vaccineName: "BCG",
+      date: "2023-12-08",
+      status: "completed",
+      provider: "Barangay Health Center",
+      location: "Thunderbolts Health Station"
     }
   ]
 };
@@ -123,251 +162,176 @@ export function ParentPortal({ onSwitchToAdmin }: ParentPortalProps) {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "completed": return "bg-green-100 text-green-800";
-      case "due": return "bg-yellow-100 text-yellow-800";
-      case "overdue": return "bg-red-100 text-red-800";
-      default: return "bg-gray-100 text-gray-800";
+      case "completed": return "text-green-600";
+      case "due": return "text-orange-500";
+      case "overdue": return "text-red-600";
+      default: return "text-gray-600";
     }
   };
 
-  const getStatusIcon = (status: string) => {
+  const getStatusText = (status: string) => {
     switch (status) {
-      case "completed": return <CheckCircle className="h-4 w-4" />;
-      case "due": return <Clock className="h-4 w-4" />;
-      case "overdue": return <AlertCircle className="h-4 w-4" />;
-      default: return <Clock className="h-4 w-4" />;
+      case "completed": return "Completed";
+      case "due": return "Due Soon";
+      case "overdue": return "Overdue";
+      default: return "Scheduled";
     }
   };
 
   return (
-    <div className="h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 p-4">
-        <div className="flex items-center justify-between">
+      <header className="bg-blue-600 text-white p-4">
+        <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <Button
               variant="ghost"
               size="sm"
               onClick={onSwitchToAdmin}
-              className="text-gray-600"
+              className="text-white hover:bg-blue-700"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Admin Portal
+              Admin Portal
             </Button>
             <div className="flex items-center space-x-3">
-              <div className="p-2 bg-blue-600 rounded-lg">
-                <Syringe className="h-6 w-6 text-white" />
+              <div className="bg-white p-2 rounded">
+                <Syringe className="h-6 w-6 text-blue-600" />
               </div>
               <div>
-                <h1 className="text-lg font-semibold">ImmunizeTrack</h1>
-                <p className="text-sm text-gray-500">Parent Portal</p>
+                <h1 className="text-xl font-bold">BTVP</h1>
+                <p className="text-sm text-blue-100">Barangay Thunderbolts Vaccination Program</p>
               </div>
             </div>
           </div>
-          <div className="flex items-center space-x-3">
-            <div className="text-right">
-              <p className="text-sm font-medium">Sarah Johnson</p>
-              <p className="text-xs text-gray-500">Parent Account</p>
-            </div>
-            <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
-              <span className="text-sm text-white font-medium">SJ</span>
-            </div>
-          </div>
+          <Button 
+            variant="outline" 
+            size="sm"
+            className="bg-red-500 border-red-500 text-white hover:bg-red-600"
+          >
+            Logout
+          </Button>
         </div>
       </header>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-auto p-6">
-        <div className="max-w-6xl mx-auto space-y-6">
-          {/* Child Selection */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <Baby className="h-5 w-5 mr-2" />
-                My Children
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex space-x-4">
-                {mockChildren.map((child) => (
-                  <Button
-                    key={child.id}
-                    variant={selectedChild === child.id ? "default" : "outline"}
-                    onClick={() => setSelectedChild(child.id)}
-                    className="h-auto p-4 flex flex-col items-center"
-                  >
-                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-2">
-                      <span className="text-lg font-medium text-blue-600">{child.avatar}</span>
-                    </div>
-                    <span className="text-sm font-medium">{child.name}</span>
-                    <span className="text-xs text-gray-500">{child.age}</span>
-                  </Button>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+      <div className="flex-1 p-6">
+        <div className="max-w-4xl mx-auto">
+          {/* Welcome Message */}
+          <div className="bg-white rounded-lg p-6 mb-6 text-center">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome, Mr/Mrs Agipa!</h2>
+            <p className="text-gray-600">
+              Your child's health is our priority. Review their immunization records below to stay informed and on 
+              track. You're doing great, and we're here to support you every step of the way!
+            </p>
+          </div>
 
-          {/* Child Details and Vaccinations */}
+          {/* Children Cards */}
+          <div className="grid gap-4 mb-6">
+            {mockChildren.map((child) => {
+              const childVaccinations = mockVaccinations[child.id] || [];
+              const completedCount = childVaccinations.filter(v => v.status === "completed").length;
+              const dueCount = childVaccinations.filter(v => v.status === "due" || v.status === "overdue").length;
+              
+              return (
+                <Card 
+                  key={child.id} 
+                  className={`cursor-pointer transition-all hover:shadow-md ${
+                    selectedChild === child.id ? 'ring-2 ring-blue-500 bg-blue-50' : ''
+                  }`}
+                  onClick={() => setSelectedChild(child.id)}
+                >
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center border-l-4 border-blue-500">
+                          <span className="text-lg font-bold text-blue-600">{child.avatar}</span>
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-900">{child.name}</h3>
+                          <p className="text-sm text-gray-500">Birthdate: {child.dateOfBirth}</p>
+                          <p className="text-sm">
+                            <span className={getStatusColor(dueCount > 0 ? "due" : "completed")}>
+                              Status: {dueCount > 0 ? "Due Soon" : "Completed"}
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                      {selectedChild === child.id && (
+                        <div className="text-right">
+                          <div className="text-xs text-gray-500 mb-1">QR Code</div>
+                          <div className="w-12 h-12 bg-gray-900 rounded flex items-center justify-center">
+                            <div className="grid grid-cols-3 gap-0.5">
+                              {[...Array(9)].map((_, i) => (
+                                <div key={i} className="w-1 h-1 bg-white rounded-sm"></div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+
+          {/* Vaccination Schedule for Selected Child */}
           {currentChild && (
-            <Tabs defaultValue="vaccinations" className="space-y-6">
-              <TabsList>
-                <TabsTrigger value="vaccinations">Vaccination Records</TabsTrigger>
-                <TabsTrigger value="schedule">Upcoming Schedule</TabsTrigger>
-                <TabsTrigger value="certificates">Certificates</TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="vaccinations" className="space-y-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center">
-                      <User className="h-5 w-5 mr-2" />
-                      {currentChild.name} - Vaccination History
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {vaccinations.map((vaccination) => (
-                        <div
-                          key={vaccination.id}
-                          className="flex items-center justify-between p-4 border rounded-lg"
-                        >
-                          <div className="flex items-center space-x-4">
-                            {getStatusIcon(vaccination.status)}
-                            <div>
-                              <h3 className="font-medium">{vaccination.vaccineName}</h3>
-                              <p className="text-sm text-gray-500">
-                                {vaccination.date ? `Administered: ${vaccination.date}` : `Next due: ${vaccination.nextDue}`}
-                              </p>
-                              <p className="text-sm text-gray-500">
-                                <MapPin className="h-3 w-3 inline mr-1" />
-                                {vaccination.location}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="text-right">
-                            <Badge className={getStatusColor(vaccination.status)}>
-                              {vaccination.status}
-                            </Badge>
-                            <p className="text-sm text-gray-500 mt-1">{vaccination.provider}</p>
-                          </div>
-                        </div>
-                      ))}
+            <Card className="bg-white">
+              <CardHeader className="border-b">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center border-l-4 border-blue-500">
+                      <span className="text-lg font-bold text-blue-600">{currentChild.avatar}</span>
                     </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="schedule" className="space-y-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center">
-                      <Calendar className="h-5 w-5 mr-2" />
-                      Upcoming Vaccinations
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {vaccinations
-                        .filter(v => v.status === "due" || v.status === "overdue")
-                        .map((vaccination) => (
-                          <div
-                            key={vaccination.id}
-                            className="flex items-center justify-between p-4 border rounded-lg"
-                          >
-                            <div className="flex items-center space-x-4">
-                              {getStatusIcon(vaccination.status)}
-                              <div>
-                                <h3 className="font-medium">{vaccination.vaccineName}</h3>
-                                <p className="text-sm text-gray-500">Due: {vaccination.nextDue}</p>
-                                <p className="text-sm text-gray-500">
-                                  <MapPin className="h-3 w-3 inline mr-1" />
-                                  {vaccination.location}
-                                </p>
-                              </div>
-                            </div>
-                            <div className="text-right">
-                              <Badge className={getStatusColor(vaccination.status)}>
-                                {vaccination.status}
-                              </Badge>
-                              <Button size="sm" className="mt-2">
-                                Schedule Appointment
-                              </Button>
-                            </div>
-                          </div>
+                    <div>
+                      <CardTitle className="text-xl">{currentChild.name}</CardTitle>
+                      <p className="text-sm text-gray-500">Birthdate: {currentChild.dateOfBirth}</p>
+                      <p className="text-sm">
+                        <span className={getStatusColor(vaccinations.some(v => v.status === "due" || v.status === "overdue") ? "due" : "completed")}>
+                          Status: {vaccinations.some(v => v.status === "due" || v.status === "overdue") ? "Due Soon" : "Completed"}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xs text-gray-500 mb-1">QR Code</div>
+                    <div className="w-16 h-16 bg-gray-900 rounded flex items-center justify-center">
+                      <div className="grid grid-cols-4 gap-0.5">
+                        {[...Array(16)].map((_, i) => (
+                          <div key={i} className="w-1 h-1 bg-white rounded-sm"></div>
                         ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="certificates" className="space-y-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center">
-                      <Download className="h-5 w-5 mr-2" />
-                      Vaccination Certificates
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between p-4 border rounded-lg">
-                        <div>
-                          <h3 className="font-medium">Complete Vaccination Record</h3>
-                          <p className="text-sm text-gray-500">All vaccination history for {currentChild.name}</p>
-                        </div>
-                        <Button variant="outline">
-                          <Download className="h-4 w-4 mr-2" />
-                          Download PDF
-                        </Button>
-                      </div>
-                      <div className="flex items-center justify-between p-4 border rounded-lg">
-                        <div>
-                          <h3 className="font-medium">School Entry Certificate</h3>
-                          <p className="text-sm text-gray-500">Certificate for school enrollment</p>
-                        </div>
-                        <Button variant="outline">
-                          <Download className="h-4 w-4 mr-2" />
-                          Download PDF
-                        </Button>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            </Tabs>
+                  </div>
+                </div>
+              </CardHeader>
+              
+              <CardContent className="p-0">
+                <div className="p-6">
+                  <h3 className="text-lg font-semibold mb-4 text-blue-600">Vaccination Schedule</h3>
+                  <div className="space-y-3">
+                    {vaccinations.map((vaccination) => (
+                      <div key={vaccination.id} className="flex items-center justify-between py-3 px-4 bg-gray-50 rounded-lg">
+                        <div className="flex-1">
+                          <h4 className="font-medium text-gray-900">{vaccination.vaccineName}</h4>
+                          <p className="text-sm text-gray-600">
+                            {vaccination.date ? `Took last ${vaccination.date}` : `Scheduled for ${vaccination.nextDue}`}
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <span className={`text-sm font-medium ${getStatusColor(vaccination.status)}`}>
+                            {getStatusText(vaccination.status)}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           )}
 
-          {/* Contact Information */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Need Help?</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-3 gap-4">
-                <div className="flex items-center space-x-3">
-                  <Phone className="h-5 w-5 text-blue-600" />
-                  <div>
-                    <p className="font-medium">Call Us</p>
-                    <p className="text-sm text-gray-500">(555) 123-4567</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Mail className="h-5 w-5 text-blue-600" />
-                  <div>
-                    <p className="font-medium">Email Support</p>
-                    <p className="text-sm text-gray-500">support@immunizetrack.com</p>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <MapPin className="h-5 w-5 text-blue-600" />
-                  <div>
-                    <p className="font-medium">Find Clinics</p>
-                    <p className="text-sm text-gray-500">Locate nearby vaccination sites</p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </div>
