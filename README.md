@@ -1,17 +1,27 @@
-# Hospital Admin Health Management Dashboard
+# Immunization Management System
 
-A modern, responsive healthcare administration dashboard built with React, TypeScript, and Tailwind CSS.
+A modern, responsive immunization management system built with React, TypeScript, and Tailwind CSS. Designed for healthcare administrators and parents to manage and track vaccination records.
 
 ## Features
 
-- 📊 **Interactive Dashboard**: Real-time metrics and analytics
-- 👥 **Patient Management**: Track patient information and statistics
-- 📅 **Appointment Scheduling**: Manage appointments and schedules
-- 🏥 **Bed Management**: Monitor bed availability and occupancy
-- 👨‍⚕️ **Staff Management**: Manage healthcare staff and departments
-- 📁 **Medical Records**: Access and manage patient records
-- 📈 **Analytics**: Comprehensive reporting and analytics
-- 🔔 **Alerts & Notifications**: Real-time alerts and notifications
+### Admin Portal
+- 📊 **Interactive Dashboard**: Real-time immunization metrics and analytics
+- � **Vaccine Management**: Track vaccine inventory and distribution
+- 👥 **Patient Management**: Manage immunization records for all patients
+- 📅 **Vaccination Scheduling**: Schedule and track vaccination appointments
+- 🏥 **Clinic Management**: Monitor vaccination sites and capacity
+- 👨‍⚕️ **Staff Management**: Manage healthcare staff and vaccination teams
+- 📁 **Medical Records**: Access and manage immunization records
+- 📈 **Analytics**: Comprehensive vaccination coverage reporting
+- 🔔 **Alerts & Notifications**: Vaccine reminders and alerts
+
+### Parent Portal
+- � **Child Profiles**: View all registered children's immunization records
+- 📅 **Vaccination Schedule**: Track upcoming and completed vaccinations
+- 📋 **Immunization History**: Complete vaccination history with dates and providers
+- 🔔 **Reminders**: Automated reminders for upcoming vaccinations
+- 📄 **Certificates**: Download vaccination certificates and records
+- 📱 **Mobile Friendly**: Access records on any device
 
 ## Tech Stack
 
@@ -33,8 +43,8 @@ A modern, responsive healthcare administration dashboard built with React, TypeS
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/Hospital-Admin-Health-Management-Dashboard.git
-   cd Hospital-Admin-Health-Management-Dashboard
+   git clone https://github.com/yourusername/Immunization-Management-System.git
+   cd Immunization-Management-System
    ```
 
 2. Install dependencies:
@@ -75,6 +85,8 @@ npm run deploy
 ```
 ├── components/           # React components
 │   ├── ui/              # Reusable UI components (shadcn/ui)
+│   ├── admin/           # Admin portal components
+│   ├── parent/          # Parent portal components
 │   ├── DashboardHeader.tsx
 │   ├── DashboardSidebar.tsx
 │   ├── DashboardMetrics.tsx
@@ -88,23 +100,30 @@ npm run deploy
 
 ## Features Overview
 
-### Dashboard Metrics
-- Total Patients: 1,247
-- Today's Appointments: 89
-- Available Beds: 23/156
-- Active Alerts: 3
+### Admin Dashboard Metrics
+- Total Patients: 1,247 (immunized individuals)
+- Today's Vaccinations: 89
+- Vaccine Inventory: 1,245 doses
+- Active Alerts: 3 (low stock warnings)
+
+### Parent Portal Features
+- View child immunization records
+- Track vaccination schedules
+- Receive reminders for upcoming vaccines
+- Download vaccination certificates
+- View clinic information and schedules
 
 ### Charts & Analytics
-- Patient admission trends
-- Department-wise patient distribution
-- Monthly revenue tracking
-- Bed occupancy rates
+- Vaccination coverage by age group
+- Vaccine distribution by type
+- Monthly vaccination trends
+- Coverage rates by geographic area
 
 ### Recent Activities
-- Real-time activity feed
-- Patient admissions and discharges
-- Staff assignments
-- System alerts
+- Real-time vaccination records
+- New patient registrations
+- Vaccine inventory updates
+- System alerts and reminders
 
 ## Contributing
 

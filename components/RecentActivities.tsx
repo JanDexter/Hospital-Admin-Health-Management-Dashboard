@@ -1,11 +1,11 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { Clock, User, UserPlus, Calendar, AlertTriangle, CheckCircle } from "lucide-react";
+import { Clock, UserPlus, Calendar, AlertTriangle, Syringe, Package } from "lucide-react";
 
 interface Activity {
   id: string;
-  type: 'admission' | 'discharge' | 'appointment' | 'alert' | 'staff';
+  type: 'vaccination' | 'registration' | 'appointment' | 'alert' | 'inventory';
   title: string;
   description: string;
   time: string;
@@ -19,86 +19,86 @@ interface Activity {
 const activities: Activity[] = [
   {
     id: '1',
-    type: 'alert',
-    title: 'Critical Patient Alert',
-    description: 'Patient John Doe (Room 205) requires immediate attention',
+    type: 'vaccination',
+    title: 'Vaccination Completed',
+    description: 'Emma Johnson received DTaP vaccine',
     time: '5 min ago',
-    severity: 'high',
-    user: { name: 'Dr. Smith' }
+    severity: 'low',
+    user: { name: 'Dr. Wilson' }
   },
   {
     id: '2',
-    type: 'admission',
-    title: 'New Patient Admission',
-    description: 'Emergency admission to Cardiology department',
+    type: 'registration',
+    title: 'New Patient Registration',
+    description: 'Alex Chen registered for immunization program',
     time: '12 min ago',
     severity: 'medium',
-    user: { name: 'Nurse Johnson' }
+    user: { name: 'Nurse Rodriguez' }
   },
   {
     id: '3',
-    type: 'discharge',
-    title: 'Patient Discharge',
-    description: 'Sarah Wilson discharged from Orthopedics',
+    type: 'appointment',
+    title: 'Vaccination Scheduled',
+    description: 'MMR vaccination scheduled for tomorrow',
     time: '25 min ago',
     severity: 'low',
-    user: { name: 'Dr. Brown' }
+    user: { name: 'Dr. Smith' }
   },
   {
     id: '4',
-    type: 'staff',
-    title: 'New Staff Member',
-    description: 'Dr. Alice Chen joined Neurology department',
+    type: 'inventory',
+    title: 'Vaccine Shipment Received',
+    description: '500 doses of Polio vaccine delivered',
     time: '1 hour ago',
     severity: 'low'
   },
   {
     id: '5',
-    type: 'appointment',
-    title: 'Appointment Scheduled',
-    description: 'Surgery scheduled for tomorrow 9:00 AM',
+    type: 'alert',
+    title: 'Vaccination Due Reminder',
+    description: '15 children have overdue vaccinations',
     time: '2 hours ago',
     severity: 'medium',
-    user: { name: 'Dr. Martinez' }
+    user: { name: 'System' }
   }
 ];
 
 const alerts = [
   {
     id: '1',
-    title: 'ICU Bed Shortage',
-    description: 'Only 2 ICU beds remaining',
+    title: 'Low Vaccine Stock',
+    description: 'MMR vaccine: Only 25 doses remaining',
     severity: 'high' as const,
     time: '10 min ago'
   },
   {
     id: '2',
-    title: 'Equipment Maintenance',
-    description: 'MRI Machine #2 scheduled for maintenance',
+    title: 'Overdue Vaccinations',
+    description: '23 children have missed vaccination dates',
     severity: 'medium' as const,
     time: '1 hour ago'
   },
   {
     id: '3',
-    title: 'Staff Overtime Alert',
-    description: 'Night shift exceeding recommended hours',
-    severity: 'medium' as const,
+    title: 'Cold Chain Alert',
+    description: 'Refrigerator temperature fluctuation detected',
+    severity: 'high' as const,
     time: '3 hours ago'
   }
 ];
 
 function getActivityIcon(type: Activity['type']) {
   switch (type) {
-    case 'admission':
+    case 'vaccination':
+      return <Syringe className="h-4 w-4" />;
+    case 'registration':
       return <UserPlus className="h-4 w-4" />;
-    case 'discharge':
-      return <CheckCircle className="h-4 w-4" />;
     case 'appointment':
       return <Calendar className="h-4 w-4" />;
     case 'alert':
       return <AlertTriangle className="h-4 w-4" />;
-    case 'staff':
-      return <User className="h-4 w-4" />;
+    case 'inventory':
+      return <Package className="h-4 w-4" />;
     default:
       return <Clock className="h-4 w-4" />;
   }

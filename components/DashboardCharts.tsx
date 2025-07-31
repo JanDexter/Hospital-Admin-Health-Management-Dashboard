@@ -1,83 +1,83 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Area, AreaChart } from 'recharts';
 
-const patientFlowData = [
-  { name: 'Mon', admissions: 24, discharges: 18, emergency: 12 },
-  { name: 'Tue', admissions: 32, discharges: 22, emergency: 15 },
-  { name: 'Wed', admissions: 28, discharges: 25, emergency: 18 },
-  { name: 'Thu', admissions: 35, discharges: 20, emergency: 14 },
-  { name: 'Fri', admissions: 30, discharges: 28, emergency: 20 },
-  { name: 'Sat', admissions: 25, discharges: 15, emergency: 25 },
-  { name: 'Sun', admissions: 20, discharges: 12, emergency: 22 },
+const vaccinationFlowData = [
+  { name: 'Mon', vaccinations: 24, appointments: 18, walkins: 12 },
+  { name: 'Tue', vaccinations: 32, appointments: 22, walkins: 15 },
+  { name: 'Wed', vaccinations: 28, appointments: 25, walkins: 18 },
+  { name: 'Thu', vaccinations: 35, appointments: 20, walkins: 14 },
+  { name: 'Fri', vaccinations: 30, appointments: 28, walkins: 20 },
+  { name: 'Sat', vaccinations: 25, appointments: 15, walkins: 25 },
+  { name: 'Sun', vaccinations: 20, appointments: 12, walkins: 22 },
 ];
 
-const departmentData = [
-  { name: 'Emergency', patients: 156, color: '#ef4444' },
-  { name: 'Cardiology', patients: 89, color: '#3b82f6' },
-  { name: 'Orthopedics', patients: 72, color: '#10b981' },
-  { name: 'Neurology', patients: 54, color: '#f59e0b' },
-  { name: 'Pediatrics', patients: 98, color: '#8b5cf6' },
-  { name: 'Surgery', patients: 43, color: '#ec4899' },
+const vaccineTypeData = [
+  { name: 'DTaP', administered: 156, color: '#ef4444' },
+  { name: 'MMR', administered: 89, color: '#3b82f6' },
+  { name: 'Polio', administered: 72, color: '#10b981' },
+  { name: 'Hepatitis B', administered: 54, color: '#f59e0b' },
+  { name: 'Varicella', administered: 98, color: '#8b5cf6' },
+  { name: 'Flu', administered: 143, color: '#ec4899' },
 ];
 
 const monthlyTrendsData = [
-  { month: 'Jan', patients: 890, revenue: 720 },
-  { month: 'Feb', patients: 920, revenue: 780 },
-  { month: 'Mar', patients: 1050, revenue: 850 },
-  { month: 'Apr', patients: 980, revenue: 920 },
-  { month: 'May', patients: 1120, revenue: 990 },
-  { month: 'Jun', patients: 1200, revenue: 1100 },
-  { month: 'Jul', patients: 1247, revenue: 1180 },
+  { month: 'Jan', vaccinations: 890, coverage: 72 },
+  { month: 'Feb', vaccinations: 920, coverage: 78 },
+  { month: 'Mar', vaccinations: 1050, coverage: 85 },
+  { month: 'Apr', vaccinations: 980, coverage: 82 },
+  { month: 'May', vaccinations: 1120, coverage: 89 },
+  { month: 'Jun', vaccinations: 1200, coverage: 91 },
+  { month: 'Jul', vaccinations: 1247, coverage: 87 },
 ];
 
 export function DashboardCharts() {
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-      {/* Patient Flow Chart */}
+      {/* Vaccination Flow Chart */}
       <Card className="col-span-4">
         <CardHeader>
-          <CardTitle>Weekly Patient Flow</CardTitle>
+          <CardTitle>Weekly Vaccination Activity</CardTitle>
           <CardDescription>
-            Admissions, discharges, and emergency visits this week
+            Vaccinations administered, scheduled appointments, and walk-ins this week
           </CardDescription>
         </CardHeader>
         <CardContent className="pl-2">
           <ResponsiveContainer width="100%" height={350}>
-            <BarChart data={patientFlowData}>
+            <BarChart data={vaccinationFlowData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
-              <Bar dataKey="admissions" fill="hsl(var(--chart-1))" name="Admissions" />
-              <Bar dataKey="discharges" fill="hsl(var(--chart-2))" name="Discharges" />
-              <Bar dataKey="emergency" fill="hsl(var(--chart-3))" name="Emergency" />
+              <Bar dataKey="vaccinations" fill="hsl(var(--chart-1))" name="Vaccinations" />
+              <Bar dataKey="appointments" fill="hsl(var(--chart-2))" name="Appointments" />
+              <Bar dataKey="walkins" fill="hsl(var(--chart-3))" name="Walk-ins" />
             </BarChart>
           </ResponsiveContainer>
         </CardContent>
       </Card>
 
-      {/* Department Distribution */}
+      {/* Vaccine Type Distribution */}
       <Card className="col-span-3">
         <CardHeader>
-          <CardTitle>Department Distribution</CardTitle>
+          <CardTitle>Vaccine Distribution</CardTitle>
           <CardDescription>
-            Current patient distribution by department
+            Vaccines administered by type this month
           </CardDescription>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={350}>
             <PieChart>
               <Pie
-                data={departmentData}
+                data={vaccineTypeData}
                 cx="50%"
                 cy="50%"
                 innerRadius={60}
                 outerRadius={120}
                 fill="#8884d8"
-                dataKey="patients"
-                label={({ name, patients }) => `${name}: ${patients}`}
+                dataKey="administered"
+                label={({ name, administered }) => `${name}: ${administered}`}
               >
-                {departmentData.map((entry, index) => (
+                {vaccineTypeData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
               </Pie>
@@ -90,9 +90,9 @@ export function DashboardCharts() {
       {/* Monthly Trends */}
       <Card className="col-span-7">
         <CardHeader>
-          <CardTitle>Monthly Trends</CardTitle>
+          <CardTitle>Monthly Immunization Trends</CardTitle>
           <CardDescription>
-            Patient count and revenue trends over the past 7 months
+            Vaccination count and coverage percentage over the past 7 months
           </CardDescription>
         </CardHeader>
         <CardContent className="pl-2">
@@ -102,8 +102,8 @@ export function DashboardCharts() {
               <XAxis dataKey="month" />
               <YAxis />
               <Tooltip />
-              <Area type="monotone" dataKey="patients" stroke="hsl(var(--chart-1))" fill="hsl(var(--chart-1))" fillOpacity={0.3} name="Patients" />
-              <Area type="monotone" dataKey="revenue" stroke="hsl(var(--chart-2))" fill="hsl(var(--chart-2))" fillOpacity={0.3} name="Revenue (K)" />
+              <Area type="monotone" dataKey="vaccinations" stroke="hsl(var(--chart-1))" fill="hsl(var(--chart-1))" fillOpacity={0.3} name="Vaccinations" />
+              <Area type="monotone" dataKey="coverage" stroke="hsl(var(--chart-2))" fill="hsl(var(--chart-2))" fillOpacity={0.3} name="Coverage %" />
             </AreaChart>
           </ResponsiveContainer>
         </CardContent>

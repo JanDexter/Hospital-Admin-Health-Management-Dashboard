@@ -7,12 +7,12 @@ import {
   FileText, 
   BarChart3, 
   Settings, 
-  Bed, 
-  Stethoscope,
+  Syringe, 
   UserCog,
   Bell,
   LogOut,
-  Building2
+  Package,
+  MapPin
 } from "lucide-react";
 
 interface SidebarItem {
@@ -20,6 +20,10 @@ interface SidebarItem {
   label: string;
   badge?: string;
   active?: boolean;
+}
+
+interface DashboardSidebarProps {
+  onSwitchToParent?: () => void;
 }
 
 const sidebarItems: SidebarItem[] = [
@@ -34,17 +38,22 @@ const sidebarItems: SidebarItem[] = [
     badge: "1,247"
   },
   {
-    icon: <Calendar className="h-4 w-4" />,
-    label: "Appointments",
+    icon: <Syringe className="h-4 w-4" />,
+    label: "Vaccinations",
     badge: "89"
   },
   {
-    icon: <Bed className="h-4 w-4" />,
-    label: "Bed Management"
+    icon: <Package className="h-4 w-4" />,
+    label: "Vaccine Inventory",
+    badge: "1,245"
   },
   {
-    icon: <Stethoscope className="h-4 w-4" />,
-    label: "Departments"
+    icon: <Calendar className="h-4 w-4" />,
+    label: "Scheduling"
+  },
+  {
+    icon: <MapPin className="h-4 w-4" />,
+    label: "Clinics"
   },
   {
     icon: <UserCog className="h-4 w-4" />,
@@ -70,17 +79,17 @@ const sidebarItems: SidebarItem[] = [
   }
 ];
 
-export function DashboardSidebar() {
+export function DashboardSidebar({ }: DashboardSidebarProps) {
   return (
     <div className="w-64 bg-white border-r border-gray-200 h-full flex flex-col">
       {/* Logo */}
       <div className="p-6 border-b border-gray-200">
         <div className="flex items-center space-x-3">
           <div className="p-2 bg-blue-600 rounded-lg">
-            <Building2 className="h-6 w-6 text-white" />
+            <Syringe className="h-6 w-6 text-white" />
           </div>
           <div>
-            <h1 className="text-lg font-semibold">HealthCare HMS</h1>
+            <h1 className="text-lg font-semibold">ImmunizeTrack</h1>
             <p className="text-sm text-gray-500">Admin Portal</p>
           </div>
         </div>
@@ -120,7 +129,7 @@ export function DashboardSidebar() {
           </div>
           <div className="flex-1">
             <p className="text-sm font-medium">Dr. Admin</p>
-            <p className="text-xs text-gray-500">Chief Administrator</p>
+            <p className="text-xs text-gray-500">System Administrator</p>
           </div>
         </div>
         <Button variant="ghost" size="sm" className="w-full justify-start text-gray-600">

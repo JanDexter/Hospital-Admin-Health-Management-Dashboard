@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Users, Calendar, Bed, AlertTriangle, TrendingUp, Activity } from "lucide-react";
+import { Users, Calendar, Package, AlertTriangle, TrendingUp, Syringe, Shield, Target } from "lucide-react";
 
 interface MetricCardProps {
   title: string;
@@ -40,42 +40,42 @@ export function DashboardMetrics() {
     {
       title: "Total Patients",
       value: "1,247",
-      description: "Active patients in system",
+      description: "Registered for immunizations",
       icon: <Users className="h-4 w-4 text-muted-foreground" />,
       trend: { value: 12, isPositive: true }
     },
     {
-      title: "Today's Appointments",
+      title: "Today's Vaccinations",
       value: "89",
-      description: "Scheduled for today",
-      icon: <Calendar className="h-4 w-4 text-muted-foreground" />,
+      description: "Vaccines administered today",
+      icon: <Syringe className="h-4 w-4 text-muted-foreground" />,
       trend: { value: 8, isPositive: true }
     },
     {
-      title: "Bed Occupancy",
-      value: "87%",
-      description: "245 of 280 beds occupied",
-      icon: <Bed className="h-4 w-4 text-muted-foreground" />,
+      title: "Vaccine Inventory",
+      value: "1,245",
+      description: "Doses in stock",
+      icon: <Package className="h-4 w-4 text-muted-foreground" />,
       trend: { value: 5, isPositive: false }
     },
     {
-      title: "Critical Alerts",
+      title: "Low Stock Alerts",
       value: "3",
-      description: "Require immediate attention",
+      description: "Vaccines running low",
       icon: <AlertTriangle className="h-4 w-4 text-red-500" />,
     },
     {
-      title: "Monthly Revenue",
-      value: "$847K",
-      description: "Current month earnings",
-      icon: <Activity className="h-4 w-4 text-muted-foreground" />,
-      trend: { value: 15, isPositive: true }
+      title: "Coverage Rate",
+      value: "87%",
+      description: "Population immunization coverage",
+      icon: <Shield className="h-4 w-4 text-muted-foreground" />,
+      trend: { value: 3, isPositive: true }
     },
     {
-      title: "Staff on Duty",
-      value: "234",
-      description: "Currently active staff",
-      icon: <Users className="h-4 w-4 text-muted-foreground" />,
+      title: "Scheduled Appointments",
+      value: "156",
+      description: "Upcoming vaccination appointments",
+      icon: <Calendar className="h-4 w-4 text-muted-foreground" />,
     }
   ];
 

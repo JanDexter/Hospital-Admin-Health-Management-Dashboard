@@ -21,7 +21,7 @@ export function DashboardHeader() {
             <Menu className="h-4 w-4" />
           </Button>
           <div>
-            <h1 className="text-xl font-semibold text-gray-900">Dashboard Overview</h1>
+            <h1 className="text-xl font-semibold text-gray-900">Immunization Dashboard</h1>
             <p className="text-sm text-gray-500">Welcome back, Dr. Admin</p>
           </div>
         </div>
@@ -31,7 +31,7 @@ export function DashboardHeader() {
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
-              placeholder="Search patients, staff, records..."
+              placeholder="Search patients, vaccines, records..."
               className="pl-10 bg-gray-50 border-gray-200"
             />
           </div>
@@ -47,7 +47,7 @@ export function DashboardHeader() {
           <div className="hidden lg:flex items-center space-x-2">
             <Button size="sm">
               <Plus className="h-4 w-4 mr-2" />
-              New Patient
+              New Vaccination
             </Button>
             <Button variant="outline" size="sm">
               <Download className="h-4 w-4 mr-2" />
@@ -76,7 +76,7 @@ export function DashboardHeader() {
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
           <Input
-            placeholder="Search patients, staff, records..."
+            placeholder="Search patients, vaccines, records..."
             className="pl-10 bg-gray-50 border-gray-200"
           />
         </div>
