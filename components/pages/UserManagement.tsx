@@ -15,7 +15,10 @@ import {
   Phone,
   MapPin,
   Calendar,
-  MoreHorizontal
+  MoreHorizontal,
+  UserPlus,
+  Baby,
+  Stethoscope
 } from "lucide-react";
 
 interface User {
@@ -23,93 +26,107 @@ interface User {
   name: string;
   email: string;
   phone: string;
-  role: "admin" | "nurse" | "doctor" | "receptionist";
+  role: "city-admin" | "health-worker" | "parent" | "system-admin";
   department: string;
+  assignedBarangay?: string; // For health workers
+  childrenLinked?: number; // For parents
   status: "active" | "inactive" | "pending";
   lastLogin: string;
   joinDate: string;
   avatar?: string;
   location: string;
+  accountType: "staff" | "parent";
 }
 
 const mockUsers: User[] = [
   {
     id: "1",
-    name: "Dr. Sarah Wilson",
-    email: "sarah.wilson@clinic.com",
-    phone: "+1-555-0123",
-    role: "doctor",
-    department: "Pediatrics",
+    name: "Dr. Maria Santos",
+    email: "maria.santos@davaocity.gov.ph",
+    phone: "+63-917-123-4567",
+    role: "health-worker",
+    department: "Pediatric Immunization",
+    assignedBarangay: "Poblacion District",
     status: "active",
     lastLogin: "2024-08-01 09:30",
-    joinDate: "2023-03-15",
-    location: "Main Clinic",
-    avatar: "SW"
+    joinDate: "2022-03-15",
+    location: "Poblacion Health Center",
+    avatar: "MS",
+    accountType: "staff"
   },
   {
-    id: "2",
-    name: "Nurse Maria Rodriguez",
-    email: "maria.rodriguez@clinic.com",
-    phone: "+1-555-0124",
-    role: "nurse",
-    department: "Immunization",
+    id: "2", 
+    name: "Nurse Carmen Reyes",
+    email: "carmen.reyes@davaocity.gov.ph",
+    phone: "+63-918-234-5678",
+    role: "health-worker",
+    department: "Immunization Services",
+    assignedBarangay: "Buhangin",
     status: "active",
     lastLogin: "2024-08-01 08:45",
-    joinDate: "2022-08-20",
-    location: "Vaccination Center",
-    avatar: "MR"
+    joinDate: "2021-07-20",
+    location: "Buhangin Health Center",
+    avatar: "CR",
+    accountType: "staff"
   },
   {
     id: "3",
-    name: "Dr. Michael Chen",
-    email: "michael.chen@clinic.com",
-    phone: "+1-555-0125",
-    role: "doctor",
-    department: "Family Medicine",
+    name: "Dr. Juan Dela Cruz",
+    email: "juan.delacruz@davaocity.gov.ph", 
+    phone: "+63-919-345-6789",
+    role: "health-worker",
+    department: "Public Health",
+    assignedBarangay: "Talomo",
     status: "active",
     lastLogin: "2024-07-31 16:20",
-    joinDate: "2021-11-10",
-    location: "Main Clinic",
-    avatar: "MC"
+    joinDate: "2020-11-08",
+    location: "Talomo Health Center",
+    avatar: "JD",
+    accountType: "staff"
   },
   {
     id: "4",
-    name: "Admin John Smith",
-    email: "john.smith@clinic.com",
-    phone: "+1-555-0126",
-    role: "admin",
-    department: "Administration",
+    name: "City Admin Jane Smith",
+    email: "jane.smith@davaocity.gov.ph",
+    phone: "+63-920-456-7890",
+    role: "city-admin",
+    department: "City Health Office",
     status: "active",
     lastLogin: "2024-08-01 07:15",
     joinDate: "2020-01-05",
-    location: "Main Office",
-    avatar: "JS"
+    location: "City Health Office",
+    avatar: "JS",
+    accountType: "staff"
   },
   {
     id: "5",
-    name: "Receptionist Lisa Park",
-    email: "lisa.park@clinic.com",
-    phone: "+1-555-0127",
-    role: "receptionist",
-    department: "Front Desk",
-    status: "inactive",
-    lastLogin: "2024-07-25 17:30",
-    joinDate: "2023-09-12",
-    location: "Main Clinic",
-    avatar: "LP"
+    name: "Ana Santos (Parent)",
+    email: "ana.santos@email.com",
+    phone: "+63-917-123-4567",
+    role: "parent",
+    department: "Parent Account",
+    childrenLinked: 1,
+    status: "active",
+    lastLogin: "2024-07-30 19:45",
+    joinDate: "2023-03-15",
+    location: "Poblacion District",
+    avatar: "AS",
+    accountType: "parent"
   },
   {
     id: "6",
-    name: "Nurse James Thompson",
-    email: "james.thompson@clinic.com",
-    phone: "+1-555-0128",
-    role: "nurse",
-    department: "Immunization",
-    status: "pending",
-    lastLogin: "Never",
-    joinDate: "2024-08-01",
-    location: "Vaccination Center",
-    avatar: "JT"
+    name: "Rosa Dela Cruz (Parent)",
+    email: "rosa.delacruz@email.com",
+    phone: "+63-918-234-5678",
+    role: "parent",
+    department: "Parent Account",
+    childrenLinked: 2,
+    status: "active",
+    lastLogin: "2024-07-28 14:20",
+    joinDate: "2024-01-20",
+    location: "Buhangin",
+    avatar: "RD",
+    accountType: "parent"
   }
 ];
 
@@ -119,10 +136,10 @@ export function UserManagement() {
 
   const getRoleColor = (role: string) => {
     switch (role) {
-      case "admin": return "bg-purple-100 text-purple-800";
-      case "doctor": return "bg-blue-100 text-blue-800";
-      case "nurse": return "bg-green-100 text-green-800";
-      case "receptionist": return "bg-gray-100 text-gray-800";
+      case "city-admin": return "bg-purple-100 text-purple-800";
+      case "health-worker": return "bg-blue-100 text-blue-800";
+      case "parent": return "bg-green-100 text-green-800";
+      case "system-admin": return "bg-red-100 text-red-800";
       default: return "bg-gray-100 text-gray-800";
     }
   };
@@ -140,15 +157,16 @@ export function UserManagement() {
     user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.department.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.role.toLowerCase().includes(searchTerm.toLowerCase())
+    user.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (user.assignedBarangay && user.assignedBarangay.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   const summaryStats = {
     totalUsers: users.length,
     activeUsers: users.filter(u => u.status === "active").length,
-    admins: users.filter(u => u.role === "admin").length,
-    doctors: users.filter(u => u.role === "doctor").length,
-    nurses: users.filter(u => u.role === "nurse").length,
+    healthWorkers: users.filter(u => u.role === "health-worker").length,
+    parents: users.filter(u => u.role === "parent").length,
+    cityAdmins: users.filter(u => u.role === "city-admin").length,
     pending: users.filter(u => u.status === "pending").length
   };
 
@@ -162,10 +180,17 @@ export function UserManagement() {
             <p className="text-gray-600">Manage staff accounts and permissions</p>
           </div>
           <div className="flex space-x-2">
-            <Button variant="outline">Import Users</Button>
+            <Button variant="outline">
+              <UserPlus className="h-4 w-4 mr-2" />
+              Create Health Worker
+            </Button>
+            <Button variant="outline">
+              <Baby className="h-4 w-4 mr-2" />
+              Create Parent Account
+            </Button>
             <Button>
               <Plus className="h-4 w-4 mr-2" />
-              Add New User
+              Bulk Import
             </Button>
           </div>
         </div>
@@ -186,20 +211,20 @@ export function UserManagement() {
         </Card>
         <Card>
           <CardContent className="p-4">
-            <div className="text-2xl font-bold text-purple-600">{summaryStats.admins}</div>
-            <div className="text-sm text-gray-500">Admins</div>
+            <div className="text-2xl font-bold text-purple-600">{summaryStats.cityAdmins}</div>
+            <div className="text-sm text-gray-500">City Admins</div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4">
-            <div className="text-2xl font-bold text-blue-600">{summaryStats.doctors}</div>
-            <div className="text-sm text-gray-500">Doctors</div>
+            <div className="text-2xl font-bold text-blue-600">{summaryStats.healthWorkers}</div>
+            <div className="text-sm text-gray-500">Health Workers</div>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4">
-            <div className="text-2xl font-bold text-green-600">{summaryStats.nurses}</div>
-            <div className="text-sm text-gray-500">Nurses</div>
+            <div className="text-2xl font-bold text-green-600">{summaryStats.parents}</div>
+            <div className="text-sm text-gray-500">Parents</div>
           </CardContent>
         </Card>
         <Card>
@@ -270,6 +295,18 @@ export function UserManagement() {
                         <MapPin className="h-3 w-3 mr-1" />
                         {user.location}
                       </span>
+                      {user.assignedBarangay && (
+                        <span className="flex items-center">
+                          <Stethoscope className="h-3 w-3 mr-1" />
+                          Barangay: {user.assignedBarangay}
+                        </span>
+                      )}
+                      {user.childrenLinked && (
+                        <span className="flex items-center">
+                          <Baby className="h-3 w-3 mr-1" />
+                          {user.childrenLinked} {user.childrenLinked === 1 ? 'Child' : 'Children'} Linked
+                        </span>
+                      )}
                       <span className="flex items-center">
                         <Calendar className="h-3 w-3 mr-1" />
                         Joined: {user.joinDate}

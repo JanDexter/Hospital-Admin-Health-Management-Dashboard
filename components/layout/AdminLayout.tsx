@@ -47,6 +47,12 @@ const sidebarItems: SidebarItem[] = [
     badge: "1,247"
   },
   {
+    icon: <Users className="h-4 w-4" />,
+    label: "Patient Management",
+    path: "/patients",
+    badge: "234"
+  },
+  {
     icon: <Syringe className="h-4 w-4" />,
     label: "Vaccinations",
     path: "/vaccinations",

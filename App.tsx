@@ -3,6 +3,7 @@ import { AdminDashboard } from "./components/pages/AdminDashboard";
 import { ParentPortal } from "./components/parent/ParentPortal";
 import { VaccineInventory } from "./components/pages/VaccineInventory";
 import { UserManagement } from "./components/pages/UserManagement";
+import { PatientManagement } from "./components/pages/PatientManagement";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
         <Route path="/parent" element={<ParentPortal />} />
         <Route path="/inventory" element={<VaccineInventory />} />
         <Route path="/users" element={<UserManagement />} />
+        <Route path="/patients" element={<PatientManagement />} />
       </Routes>
     </Router>
   );
