@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Users, Calendar, Package, AlertTriangle, TrendingUp, Syringe, Shield, Target } from "lucide-react";
+import { Users, Calendar, Package, AlertTriangle, TrendingUp, Syringe, Shield } from "lucide-react";
 
 interface MetricCardProps {
   title: string;

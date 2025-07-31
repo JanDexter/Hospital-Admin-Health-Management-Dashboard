@@ -229,7 +229,6 @@ export function ParentPortal({ onSwitchToAdmin }: ParentPortalProps) {
           <div className="grid gap-4 mb-6">
             {mockChildren.map((child) => {
               const childVaccinations = mockVaccinations[child.id] || [];
-              const completedCount = childVaccinations.filter(v => v.status === "completed").length;
               const dueCount = childVaccinations.filter(v => v.status === "due" || v.status === "overdue").length;
               
               return (
